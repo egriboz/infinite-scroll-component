@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-const style = {
-  width: 600,
+const productsGrid = {
+  width: 400,
   height: 300,
   border: "1px solid green",
   margin: 6,
@@ -60,10 +60,12 @@ const App = () => {
         endMessage={<p>end</p>}
       >
         {items.map((i, index) => (
-          <div style={style} key={index}>
-            <img src={i.image} alt={i.name} title={i.name} />
-            #{i.id} {i.name}
-          </div>
+          <article style={productsGrid} key={index}>
+            <div className="articleItem">
+              <img src={i.image} alt={i.name} title={i.name} />
+              #{i.id} {i.name}
+            </div>
+          </article>
         ))}
       </InfiniteScroll>
     </div>
