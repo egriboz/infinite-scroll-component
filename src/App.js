@@ -10,14 +10,21 @@ import InfiniteScroll from "react-infinite-scroll-component";
 //   padding: 8
 // };
 
-const App = () => {
+const App = ({ widget }) => {
+  const fetchUrl = widget.getAttribute("data-url");
+  const lang = widget.getAttribute("data-lang");
+
+  //const apiUrl = "rickandmortyapi.com/api/character/?page";
+  // console.log("lang", lang);
+  console.log("endpoint:", fetchUrl, "/ lang:", lang);
+
   const [items, setItems] = useState([]);
   const [hasMore, sethasMore] = useState(true);
   const [page, setpage] = useState(1);
 
   useEffect(() => {
     const getFirstProducts = async () => {
-      const res = await fetch(`https://rickandmortyapi.com/api/character/?page=1`);
+      const res = await fetch(`https://${fetchUrl}=1`);
       const dataJson = await res.json();
       const data = dataJson.results;
       setItems(data);
@@ -27,7 +34,7 @@ const App = () => {
   }, []);
 
   const getFetchProducts = async () => {
-    const res = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}`);
+    const res = await fetch(`https://${fetchUrl}=${page}`);
     const dataJson = await res.json();
     const data = dataJson.results;
     return data;
@@ -36,20 +43,17 @@ const App = () => {
   const fetchData = async () => {
     setTimeout(async () => {
       const scrollingItem = await getFetchProducts();
-      console.log("scrollingItem:", scrollingItem)
+      console.log("scrollingItem:", scrollingItem);
       setItems([...items, ...scrollingItem]);
 
       if (scrollingItem.length === 0 || scrollingItem.length < 20) {
         sethasMore(false);
       }
       setpage(page + 1);
-    }, 1500);
-
-
+    }, 900);
   };
 
   return (
-
     <InfiniteScroll
       dataLength={items.length}
       next={fetchData}
@@ -61,15 +65,12 @@ const App = () => {
       {items.map((i, index) => (
         <article className="article" key={index}>
           <div className="inner">
-            <img src={i.image} alt={i.name} title={i.name} />
-            #{i.id} {i.name}
+            <img src={i.image} alt={i.name} title={i.name} />#{i.id} {i.name}
           </div>
         </article>
       ))}
     </InfiniteScroll>
-
   );
-
-}
+};
 
 export default App;
