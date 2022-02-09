@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-const productsGrid = {
-  width: 400,
-  height: 300,
-  border: "1px solid green",
-  margin: 6,
-  padding: 8
-};
+// const productsGrid = {
+//   width: '100%',
+//   height: 300,
+//   border: "1px solid green",
+//   flex: '0 0 25%',
+//   margin: 6,
+//   padding: 8
+// };
 
 const App = () => {
   const [items, setItems] = useState([]);
@@ -48,27 +49,25 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>react-infinite-scroll-component</h1>
-      <hr />
-      <InfiniteScroll
-        // dataLength={this.state.items.length}
-        dataLength={items.length}
-        next={fetchData}
-        hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
-        endMessage={<p>end</p>}
-      >
-        {items.map((i, index) => (
-          <article style={productsGrid} key={index}>
-            <div className="articleItem">
-              <img src={i.image} alt={i.name} title={i.name} />
-              #{i.id} {i.name}
-            </div>
-          </article>
-        ))}
-      </InfiniteScroll>
-    </div>
+
+    <InfiniteScroll
+      dataLength={items.length}
+      next={fetchData}
+      hasMore={hasMore}
+      loader={<h4>Loading...</h4>}
+      endMessage={<p>end</p>}
+      className="infiniteScroll"
+    >
+      {items.map((i, index) => (
+        <article className="article" key={index}>
+          <div className="inner">
+            <img src={i.image} alt={i.name} title={i.name} />
+            #{i.id} {i.name}
+          </div>
+        </article>
+      ))}
+    </InfiniteScroll>
+
   );
 
 }
