@@ -16,7 +16,6 @@
     "dev": "react-scripts start",
     "build": "CI=false && react-scripts build",
     "build:widget": "parcel build src/index.js --no-source-maps --dist-dir widget",
-    "rename:widget": "yarn rename:js && yarn rename:css",
     "rename:js": "yarn rename-files /widget 'index.js' 'prodcuts.js'",
     "rename:css": "yarn rename-files /widget 'index.css' 'prodcuts.css'",
     "test": "react-scripts test",
